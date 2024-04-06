@@ -1,12 +1,23 @@
 package main
 
-type Logger interface {
-	Debug(args ...any)
-	Debugw(msg string, keysAndValues ...any)
-	Info(args ...any)
-	Infow(msg string, keysAndValues ...any)
-	Warn(args ...any)
-	Warnw(msg string, keysAndValues ...any)
-	Error(args ...any)
-	Errorw(msg string, keysAndValues ...any)
+import (
+	"log/slog"
+	"os"
+	"sync"
+)
+
+var singletonLogger *slog.Logger
+var once sync.Once
+
+func GetLogger() *slog.Logger {
+	once.Do(func() {
+		logOptions := &slog.HandlerOptions{
+			Level: slog.LevelInfo,
+		}
+		if IsDev() {
+			logOptions.Level = slog.LevelDebug
+		}
+		singletonLogger = slog.New(slog.NewJSONHandler(os.Stdout, logOptions))
+	})
+	return singletonLogger
 }

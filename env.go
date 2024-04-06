@@ -9,7 +9,7 @@ func GetEnvFileOrPanic(env string) string {
 	switch env {
 	case "prod":
 		return ".env"
-	case "dev", "":
+	case "dev":
 		return ".env.dev"
 	}
 	panic("invalid env")
