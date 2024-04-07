@@ -6,3 +6,9 @@ run: build
 
 up:
 	docker-compose up -d && docker compose logs -f app
+
+test:
+	go test -v ./...
+
+fmt:
+	go fmt ./...
