@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   redis:
-    image: redis:7.0.11-bullseye
+    image: redis:6-alpine
     container_name: redis
     ports:
       - 6379:6379
@@ -17,6 +17,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: app
+    environment:
+      - ENV=prod
     volumes:
       - .:/app
     networks:
@@ -28,7 +30,7 @@ services:
       - '22:22'
 
   nginx:
-    image: nginx:1.24.0-bullseye
+    image: nginx:latest
     container_name: nginx
     ports:
       - 80:80

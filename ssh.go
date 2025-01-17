@@ -4,13 +4,14 @@ import (
 	"crypto/sha1"
 	"encoding/hex"
 	"fmt"
-	"github.com/gliderlabs/ssh"
-	"github.com/google/uuid"
 	"io"
 	"net"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/gliderlabs/ssh"
+	"github.com/google/uuid"
 )
 
 var (
@@ -222,9 +223,9 @@ func (s *SSHServer) genDataTransferredOverTunnelResponse() string {
 }
 
 func (s *SSHServer) genTunnelCreatedResponse(key string) string {
-	output := fmt.Sprintf("%s+------------------------+\n", Gray)
-	output += fmt.Sprintf("|    💻 codesnap.sh 💻   |\n")
-	output += fmt.Sprintf("+------------------------+%s\n\n", Reset)
+	output := fmt.Sprintf("%s+----------------------------+\n", Gray)
+	output += fmt.Sprintf("|    💻 localcode.share 💻   |\n")
+	output += fmt.Sprintf("+----------------------------+%s\n\n", Reset)
 
 	output += fmt.Sprintf("%sYou opened a tunnel. Your code is ready to be streamed! 🚀%s\n\n", Green, Reset)
 
@@ -236,9 +237,9 @@ func (s *SSHServer) genTunnelCreatedResponse(key string) string {
 }
 
 func (s *SSHServer) genBasicResponse(key string) string {
-	output := fmt.Sprintf("%s+------------------------+\n", Gray)
-	output += fmt.Sprintf("|    💻 codesnap.sh 💻   |\n")
-	output += fmt.Sprintf("+------------------------+%s\n\n", Reset)
+	output := fmt.Sprintf("%s+----------------------------+\n", Gray)
+	output += fmt.Sprintf("|    💻 localcode.share 💻   |\n")
+	output += fmt.Sprintf("+----------------------------+%s\n\n", Reset)
 
 	output += fmt.Sprintf("%sYour code has been successfully uploaded! 🚀%s\n\n", Green, Reset)
 
@@ -246,19 +247,19 @@ func (s *SSHServer) genBasicResponse(key string) string {
 	link := fmt.Sprintf("%s%s%s", Purple, linkToCode, Reset)
 	output += fmt.Sprintf("Link: %s\n\n", link)
 
-	output += fmt.Sprintf("%s+------------------------+\n", Green)
+	output += fmt.Sprintf("%s+----------------------------+\n", Green)
 
 	return output
 }
 
 func (s *SSHServer) genRateLimitedResponse() string {
-	output := fmt.Sprintf("%s+------------------------+\n", Gray)
-	output += fmt.Sprintf("|    💻 codesnap.sh 💻   |\n")
-	output += fmt.Sprintf("+------------------------+%s\n\n", Reset)
+	output := fmt.Sprintf("%s+----------------------------+\n", Gray)
+	output += fmt.Sprintf("|    💻 localcode.share 💻   |\n")
+	output += fmt.Sprintf("+----------------------------+%s\n\n", Reset)
 
 	output += fmt.Sprintf("%sYou have been rate limited. Please try again later.%s\n\n", Red, Reset)
 
-	output += fmt.Sprintf("%s+------------------------+\n", Green)
+	output += fmt.Sprintf("%s+----------------------------+\n", Green)
 
 	return output
 }

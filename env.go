@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"strconv"
 )
@@ -12,7 +13,7 @@ func GetEnvFileOrPanic(env string) string {
 	case "dev":
 		return ".env.dev"
 	}
-	panic("invalid env")
+	panic(fmt.Sprintf("invalid env: %s", env))
 }
 
 func IsDev() bool {
