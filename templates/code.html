@@ -1,52 +1,82 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>localcode.share</title>
-    <link rel="icon" href="../static/favicon.png"  />
-    <link rel="stylesheet" href="../static/style.css">
-    <link rel="stylesheet"
-          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <link rel="icon" href="../static/favicon.png" />
+    <link rel="stylesheet" href="../static/style.css" />
+    <link
+      rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css"
+    />
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-
-</head>
-<body>
-<div style="text-align: center; margin-top: 50px;">
-    <button class="image-button" onclick="captureScreenshot()">Download Image</button>
-</div>
-<div class="gradient-background">
-    <div class="editor-window">
+  </head>
+  <body>
+    <div style="text-align: center; margin-top: 50px">
+      <button class="image-button" onclick="captureScreenshot()">
+        Download Image
+      </button>
+    </div>
+    <div class="gradient-background">
+      <div class="editor-window">
         <div class="title-bar">
+          <div class="btn-area">
             <div class="button red"></div>
             <div class="button yellow"></div>
             <div class="button green"></div>
+          </div>
+          <div class="copy-area">
+            <span class="copy" onclick="copyToClipboard()">复制</span>
+          </div>
         </div>
         <pre id="pre">
             <code id="code">
-               {{.}}
+              {{.}}
             </code>
         </pre>
+      </div>
+      <h2 class="branding">localcode.share</h2>
     </div>
-    <h2 class="branding">localcode.share</h2>
-</div>
 
-<script>
-    hljs.highlightAll();
-    const pre = document.getElementById('pre');
-    pre.innerHTML = pre.innerHTML.trimStart().trimEnd();
+    <script>
+      hljs.highlightAll();
+      const pre = document.getElementById("pre");
+      pre.innerHTML = pre.innerHTML.trimStart().trimEnd();
 
-    const code = document.getElementById("code")
-    code.innerHTML = code.innerHTML.trimStart().trimEnd();
+      const code = document.getElementById("code");
+      code.innerHTML = code.innerHTML.trimStart().trimEnd();
 
 
-    function captureScreenshot() {
-        html2canvas(document.querySelector('.gradient-background'), {scale: 2}).then(function(canvas) {
-            var link = document.createElement('a');
-            link.href = canvas.toDataURL();
-            link.download = 'screenshot.png';
-            link.click();
+      /**
+       * Copies the content of the code element to the user's clipboard.
+       */
+      function copyToClipboard() {
+        const content = code.textContent || code.innerText;
+        console.log(content);
+        
+        const dom = document.createElement("textarea");
+        dom.value = content;
+        document.body.appendChild(dom);
+        dom.select();
+        document.execCommand("copy");
+        document.body.removeChild(dom);
+
+        alert("复制成功");
+      }
+
+      /**
+       * Captures a screenshot of the current page and downloads it as a PNG file.
+       */
+      function captureScreenshot() {
+        html2canvas(document.querySelector(".gradient-background"), {
+          scale: 2,
+        }).then(function (canvas) {
+          var link = document.createElement("a");
+          link.href = canvas.toDataURL();
+          link.download = "screenshot.png";
+          link.click();
         });
-    }
-</script>
-</body>
+      }
+    </script>
+  </body>
 </html>
